@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Egate\EgateOtp\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class EgateOtpCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'egate-otp';
 
     public $description = 'My command';
 
