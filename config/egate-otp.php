@@ -7,8 +7,8 @@ return [
 
     'otp_length' => 6,
 
-    'otp_expires_in' => 5,
+    'default_validation_window' => 5, //minutes
 
-    'default_identifier_attribute' => 'identifier',
+    'default_identifier_attribute' => 'email', //could be email or username or any other unique identifier
 
 ];

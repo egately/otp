@@ -45,11 +45,11 @@ return [
 
     'app_name' => env('APP_NAME'), // this will be used for the title of the authenticator account
     
-     'default_identifier_attribute' => 'identifier', // the default attribute to be used as the identifier to be added to the authenticator account
+     'default_identifier_attribute' => 'email', // the default attribute to be used as the identifier to be added to the authenticator account
 
     'otp_length' => 6, // the length of the generated otp it is 6 by default
 
-    'otp_expires_in' => 5,// the minutes before the otp expires
+    'default_validation_window' => 5,// the minutes before the otp expires
 
    
 
@@ -75,6 +75,18 @@ use Egate\EgateOtp\Traits\HasEgateOtp;
 
 $otp = $user->generateOtp();
 ```
+
+
+- Validate OTP : this will validate the otp
+
+```php
+// result is true or false, the window is the number of minutes before the otp expires, if not specified the default window will be used
+$Vlaidation = $user->ValidateOtp($otp, $window = null); 
+
+```
+
+
+
 
 ## Testing
 

@@ -79,13 +79,15 @@ trait HasEgateOtp
         return $strAuthUrl;
     }
 
-    public function ValidateKey($Code, $Slots)
+    public function ValidateOtp($Code, $Slots)
     {
 
-        $secret = $this->HasOtp();
+        $secret = $this->egate_otp->code;
+        $Slots = $Slots ?? config('egate-otp.default_validation_window');
+        $Slots = (int)$Slots * 2;
         if (!$secret) throw new Exception('No User Otp Token found');
 
-        return  app(MFA::class)->verify(decrypt($secret->code), $Code, $Slots);
+        return  app(MFA::class)->verify(decrypt($secret), $Code, $Slots);
 
     }
 

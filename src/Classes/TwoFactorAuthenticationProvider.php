@@ -11,6 +11,7 @@ use BaconQrCode\Writer;
 use Egate\EgateOtp\Modles\EgateOtp;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use phpseclib3\Math\PrimeField\Integer;
 use PragmaRX\Google2FA\Google2FA;
 
 class TwoFactorAuthenticationProvider
@@ -39,7 +40,7 @@ class TwoFactorAuthenticationProvider
         return $this->engine->getQRCodeUrl($companyName, $companyEmail, $secret);
     }
 
-    public function verify(string $secret, string $code, $Slots = Null )
+    public function verify(string $secret, string $code,int $Slots = Null )
     {
         return $this->engine->verifyKey($secret, $code, $Slots);      //$Slots   x  * 30 seconds
     }
