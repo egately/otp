@@ -31,7 +31,7 @@ trait HasEgateOtp
             return app(MFA::class)->getFreshCode($this->egate_otp);
         } else{
             $record =  $this->AddKeyToUser();
-            return app(MFA::class)->getFreshCode(decrypt($record->code));
+            return app(MFA::class)->getFreshCode($record);
         }
     }
     public function CreateOtpKey()
@@ -56,8 +56,8 @@ trait HasEgateOtp
         $this->egate_otp()->create([
             'code' => encrypt($Code),
         ]);
-
-        $oTpRecord = $this->egate_otp;
+        $this->refresh();
+        $oTpRecord = EgateOtp::where('otpable_id', $this->id)->where('otpable_type', $this->getMorphClass())->first();
 
         return  $oTpRecord;
     }
@@ -84,7 +84,7 @@ trait HasEgateOtp
     public function GetQrCode($code)
     {
         $strAuthUrl = app(MFA::class)->qrCodeUrl(
-           config('egate-otp.app_name'),
+            config('egate-otp.app_name'),
             $this->{$this->egate_otp_identifier_attribute ?? config('egate-otp.default_identifier_attribute') ?? 'email'},
             $code
         );
