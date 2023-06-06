@@ -26,17 +26,17 @@ trait HasEgateOtp
 
     }
     public function GenerateCode(){
-        if($this->has('egate_otp')) {
+        if($this?->egate_otp ?? Null) {
 
             return app(MFA::class)->getFreshCode($this->egate_otp);
         } else{
-            $record =  $this->CreateOtpKey();
+            $record =  $this->AddKeyToUser();
             return app(MFA::class)->getFreshCode(decrypt($record->code));
         }
     }
     public function CreateOtpKey()
     {
-        if ($this->HasOtp()) return $this->UpdateKey($this->HasOtp());
+        if($this?->egate_otp ?? Null) return $this->UpdateKey($this->HasOtp());
         $Code = $this->generateKey();
 
         $QR = encrypt(app(MFA::class)->twoFactorQrCodeSvg($this->GetQrCode($Code)));
@@ -47,6 +47,19 @@ trait HasEgateOtp
 
         ]);
         return $OtpRecord;
+    }
+
+    public function AddKeyToUser(){
+
+        $Code = $this->generateKey();
+
+        $this->egate_otp()->create([
+            'code' => encrypt($Code),
+        ]);
+
+        $oTpRecord = $this->egate_otp;
+
+        return  $oTpRecord;
     }
 
 
