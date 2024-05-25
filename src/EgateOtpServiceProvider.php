@@ -18,7 +18,7 @@ class EgateOtpServiceProvider extends PackageServiceProvider
         $package
             ->name('egate-otp')
             ->hasConfigFile()
-            ->hasMigration('create_egate-otp_table');
+            ->hasMigration('create_egate_otp_table');
 
 //            ->hasCommand(EgateOtpCommand::class);
     }
