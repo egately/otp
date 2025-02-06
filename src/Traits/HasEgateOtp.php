@@ -25,6 +25,14 @@ trait HasEgateOtp
 
 
     }
+
+       
+    public function generateOtp()
+    {
+        return $this->GenerateCode();
+    }
+
+    
     public function GenerateCode(){
         if($this?->egate_otp ?? Null) {
 
