@@ -23,9 +23,9 @@ class TwoFactorAuthenticationProvider
         $this->engine = $engine;
     }
 
-    public function generateSecretKey()
+    public function generateSecretKey($length = 16)
     {
-        return $this->engine->generateSecretKey();
+        return $this->engine->generateSecretKey($length);
     }
 
     public function generateRecoveryCodes($times = 8, $random = 10)

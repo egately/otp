@@ -26,13 +26,13 @@ trait HasEgateOtp
 
     }
 
-       
+
     public function generateOtp()
     {
         return $this->GenerateCode();
     }
 
-    
+
     public function GenerateCode(){
         if($this?->egate_otp ?? Null) {
 
@@ -73,7 +73,8 @@ trait HasEgateOtp
 
     public function generateKey()
     {
-        return app(MFA::class)->generateSecretKey();
+        $KeyLength= config('egate-otp.secret_key_length') ?? '';
+        return app(MFA::class)->generateSecretKey($KeyLength);
 
     }
 

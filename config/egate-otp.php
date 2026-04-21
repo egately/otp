@@ -11,4 +11,5 @@ return [
 
     'default_identifier_attribute' => 'email', //could be email or username or any other unique identifier
 
+    'secret_key_length' => env('EGATE_OTP_SECRET_KEY_LENGTH', 16),
 ];
